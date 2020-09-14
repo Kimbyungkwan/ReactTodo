@@ -1,6 +1,46 @@
 import React from "react";
 import $ from "styled-components";
 
+export default function Todos() {
+  return (
+    <$Todos>
+      <$TodoTitle>To Do List</$TodoTitle>
+      <$TodoForm>
+        <$TodoInput />
+        <$TodoBtn>등록</$TodoBtn>
+      </$TodoForm>
+      <hr />
+      <TodoList />
+    </$Todos>
+  );
+}
+
+const TodoList = ({ todos }) => {
+  return (
+    <$TodoUl>
+      <Todo />
+    </$TodoUl>
+  );
+};
+const Todo = ({ todo }) => {
+  return (
+    <$TodoLi>
+      <span>할 일</span>
+      <input type="checkbox"></input>
+    </$TodoLi>
+  );
+};
+const $TodoLi = $.li`
+display: flex;
+justify-content: space-between;
+align-items:center;
+background-color:#b48484;
+padding:5px 10px;
+color:white;
+border-bottom:1px solid grey;
+margin:0;
+border-radius:5px;
+`;
 const $Todos = $.div`
   width: 500px;
   height: 750px;
@@ -32,26 +72,12 @@ const $TodoBtn = $.button`
     border:none;
     border-radius:0 5px 5px 0;
     outline:none;
-    color: white
+    color: white;
+    font-weight:100;
+
 `;
 
-export default function Todos() {
-  return (
-    <$Todos>
-      <$TodoTitle>To Do List</$TodoTitle>
-      <$TodoForm>
-        <$TodoInput />
-        <$TodoBtn>등록</$TodoBtn>
-      </$TodoForm>
-      <hr />
-      <TodoList />
-    </$Todos>
-  );
-}
-
-const TodoList = ({ todos }) => {
-  return <ul>{todos}</ul>;
-};
-const Todo = ({ todo }) => {
-  return <li>{todo}</li>;
-};
+const $TodoUl = $.ul`
+    list-style: none;
+    padding:0;
+`;
