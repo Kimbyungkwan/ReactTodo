@@ -1,56 +1,70 @@
 import React, { useState } from "react";
 import $ from "styled-components";
 
-export default function Todos({ todo, onCreate, onToggle }) {
+export default function Todos({ todos, onCreate, onToggle }) {
   const [text, setText] = useState("");
+  const onChange = e => setText(e.target.value);
   const onSubmit = e => {
     e.preventDefault();
+    onCreate(text);
     setText("");
-  };
-  const onChange = e => {
-    setText(e.target.value);
-    console.log(e.target.value);
   };
   return (
     <$Todos>
       <$TodoTitle>To Do List</$TodoTitle>
       <$TodoForm onSubmit={onSubmit}>
-        <$TodoInput onChange={onChange} />
+        <$TodoInput
+          value={text}
+          placeholder="할 일을 입력하세요"
+          onChange={onChange}
+        />
         <$TodoBtn type="submit">등록</$TodoBtn>
       </$TodoForm>
       <hr />
-      <TodoList />
+      <TodoList todos={todos} onToggle={onToggle} />
     </$Todos>
   );
 }
 
-const TodoList = ({ todos }) => {
+const TodoList = React.memo(({ todos, onToggle }) => {
   return (
     <$TodoUl>
-      <Todo />
+      {todos.map(todo => (
+        <TodoItem key={todo.id} todo={todo} onToggle={onToggle} />
+      ))}
     </$TodoUl>
   );
-};
-const Todo = ({ todo }) => {
+});
+const TodoItem = React.memo(({ todo, onToggle }) => {
   return (
-    <$TodoLi>
-      <span>할 일</span>
-      <input type="checkbox"></input>
+    <$TodoLi style={{ textDecoration: todo.done ? "line-through" : "none" }}>
+      <span>{todo.text}</span>
+      <$TodoCheckbox
+        type="checkbox"
+        onChange={() => onToggle(todo.id)}
+      ></$TodoCheckbox>
     </$TodoLi>
   );
-};
+});
+const $TodoCheckbox = $.input`
+    width: 15px;
+    height: 15px;
+    border:none;
+    cursor:pointer;
+`;
 const $TodoLi = $.li`
-display: flex;
-justify-content: space-between;
-align-items:center;
-background-color:#b48484;
-padding:5px 10px;
-color:white;
-border-bottom:1px solid grey;
-margin:0;
-border-radius:5px;
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    background-color:#b48484;
+    padding:5px 10px;
+    color:white;
+    border-bottom:1px solid grey;
+    margin:5px 0;
+    border-radius:5px;
 `;
 const $Todos = $.div`
+ overflow:auto;
   width: 500px;
   height: 750px;
   border:1px solid #b48484;
