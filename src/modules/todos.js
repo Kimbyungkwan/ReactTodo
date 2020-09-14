@@ -35,7 +35,7 @@ const initialState = [
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case ADD_TODO:
-      return [...state, action.todo];
+      if (nextId) return [...state, action.todo];
     case TOGGLE_TODO:
       return state.map(todo =>
         todo.id === action.id ? { ...todo, done: !todo.done } : todo
