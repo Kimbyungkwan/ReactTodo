@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import $ from "styled-components";
 
 export default function Todos({ todos, onCreate, onToggle }) {
@@ -51,23 +50,7 @@ const TodoItem = React.memo(({ todo, onToggle }) => {
     </$TodoLi>
   );
 });
-const $TodoCheckbox = $.input`
-    width: 15px;
-    height: 15px;
-    border:none;
-    cursor:pointer;
-`;
-const $TodoLi = $.li`
-    display: flex;
-    justify-content: space-between;
-    align-items:center;
-    background-color:#b48484;
-    padding:5px 10px;
-    color:white;
-    border-bottom:1px solid grey;
-    margin:5px 0;
-    border-radius:5px;
-`;
+
 const $Todos = $.div`
  overflow:auto;
   width: 500px;
@@ -81,11 +64,13 @@ const $Todos = $.div`
 const $TodoTitle = $.h1`
  color:#b48484;
 `;
+
 const $TodoForm = $.form`
     width:100%;
     display:flex;
     margin-bottom:20px;
 `;
+
 const $TodoInput = $.input`
     width:80%;
     padding:5px 10px;
@@ -93,6 +78,7 @@ const $TodoInput = $.input`
     border-radius:5px 0 0 5px ;
     &:focus {outline:none;}
 `;
+
 const $TodoBtn = $.button`
     width:20%;
     padding:5px 10px;
@@ -108,4 +94,23 @@ const $TodoBtn = $.button`
 const $TodoUl = $.ul`
     list-style: none;
     padding:0;
+`;
+
+const $TodoLi = $.li`
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    background-color:#b48484;
+    padding:5px 10px;
+    color:white;
+    border-bottom:1px solid grey;
+    margin:5px 0;
+    border-radius:5px;
+`;
+
+const $TodoCheckbox = $.input`
+    width: 15px;
+    height: 15px;
+    border:none;
+    cursor:pointer;
 `;
