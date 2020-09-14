@@ -1,5 +1,13 @@
+* {
+  box-sizing: border-box;
+}
 .App {
+  height: 100vh;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .App-logo {
