@@ -1,11 +1,16 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import $ from "styled-components";
 
 export default function Todos({ todos, onCreate, onToggle }) {
   const [text, setText] = useState("");
-  const onChange = e => setText(e.target.value);
+  const onChange = e => {
+    if (text.length === 25) return;
+    setText(e.target.value);
+  };
   const onSubmit = e => {
     e.preventDefault();
+    if (!text) return;
     onCreate(text);
     setText("");
   };
