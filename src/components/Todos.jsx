@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import $ from "styled-components";
 
-export default function Todos() {
+export default function Todos({ todo, onCreate, onToggle }) {
+  const [text, setText] = useState("");
+  const onSubmit = e => {
+    e.preventDefault();
+    setText("");
+  };
+  const onChange = e => {
+    setText(e.target.value);
+    console.log(e.target.value);
+  };
   return (
     <$Todos>
       <$TodoTitle>To Do List</$TodoTitle>
-      <$TodoForm>
-        <$TodoInput />
-        <$TodoBtn>등록</$TodoBtn>
+      <$TodoForm onSubmit={onSubmit}>
+        <$TodoInput onChange={onChange} />
+        <$TodoBtn type="submit">등록</$TodoBtn>
       </$TodoForm>
       <hr />
       <TodoList />
